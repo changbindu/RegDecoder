@@ -5,7 +5,7 @@
       class="flex items-center px-2 py-1 cursor-pointer rounded text-sm select-none"
       :class="[
         isSelected ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100',
-        isMatch ? 'font-semibold' : ''
+        isMatch ? 'font-semibold text-blue-600' : ''
       ]"
       :style="{ paddingLeft: (depth * 16 + 8) + 'px' }"
     >
@@ -27,6 +27,7 @@
         :depth="depth + 1"
         :selected-path="selectedPath"
         :search-query="searchQuery"
+        :auto-expand="autoExpand"
         @select="$emit('select', $event)"
       />
     </div>
@@ -34,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import type { TreeNode } from '@regdecoder/core';
 
 const props = defineProps<{
@@ -42,6 +43,7 @@ const props = defineProps<{
   depth: number;
   selectedPath: string;
   searchQuery: string;
+  autoExpand: Set<string>;
 }>();
 
 const emit = defineEmits<{
@@ -54,6 +56,20 @@ const isSelected = computed(() => props.selectedPath === props.node.path);
 const isMatch = computed(() =>
   props.searchQuery && props.node.name.toLowerCase().includes(props.searchQuery.toLowerCase())
 );
+
+// Auto-expand when node path is in the autoExpand set
+watch(() => props.autoExpand, (set) => {
+  if (set.has(props.node.path)) {
+    expanded.value = true;
+  }
+}, { immediate: true });
+
+// Collapse all when search is cleared
+watch(() => props.searchQuery, (q) => {
+  if (!q.trim()) {
+    expanded.value = false;
+  }
+});
 
 function onClick() {
   if (props.node.type === 'directory') {
