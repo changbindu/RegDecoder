@@ -1,0 +1,26 @@
+{
+  // ARMv8-A MIDR_EL1 (Main ID Register, EL1)
+  // Reference: ARM DDI 0487, Section D23.2
+  "register": {
+    "name": "MIDR_EL1",
+    "width": 64,
+    "description": "Main ID Register - Provides identification information for the processor",
+    "fields": [
+      { "name": "Revision", "bits": "0-3", "description": "Variant revision number" },
+      { "name": "PartNum", "bits": "4-15", "description": "Primary part number (e.g., 0xD0C = Cortex-A76)" },
+      { "name": "Architecture", "bits": "16-19", "description": "Architecture version (e.g., 0xF = ARMv8)" },
+      { "name": "Variant", "bits": "20-23", "description": "Variant number" },
+      { "name": "Implementer", "bits": "24-31", "description": "Implementer code (0x41 = ARM, 0x51 = Qualcomm, 0x61 = Apple)",
+        "enums": [
+          { "65": "ARM Limited" },
+          { "66": "Broadcom" },
+          { "67": "Cavium" },
+          { "80": "NVIDIA" },
+          { "81": "Qualcomm" },
+          { "97": "Apple" },
+          { "99": "Samsung" }
+        ]
+      }
+    ]
+  }
+}

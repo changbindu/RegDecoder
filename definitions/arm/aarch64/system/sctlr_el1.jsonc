@@ -1,0 +1,36 @@
+{
+  // ARMv8-A SCTLR_EL1 (System Control Register, EL1)
+  // Reference: ARM DDI 0487, Section D23.2
+  "register": {
+    "name": "SCTLR_EL1",
+    "width": 64,
+    "description": "System Control Register (EL1) - Controls architectural features of the processor",
+    "fields": [
+      { "name": "M", "bits": "0", "description": "MMU enable for EL1&0 stage 1 address translation", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "A", "bits": "1", "description": "Alignment fault checking enable", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "C", "bits": "2", "description": "Data and unified cache enable for EL1&0", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "SA", "bits": "3", "description": "Stack alignment check enable for EL1", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "SA0", "bits": "4", "description": "Stack alignment check enable for EL0", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "CP15BEN", "bits": "5", "description": "CP15 barrier enable", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "nAA", "bits": "6", "description": "Non-aligned access", "enums": [{ "0": "alignment checking" }, { "1": "non-aligned access" }] },
+      { "name": "ITD", "bits": "7", "description": "IT disable for EL0 using AArch32", "enums": [{ "0": "IT permitted" }, { "1": "IT disabled" }] },
+      { "name": "SED", "bits": "8", "description": "SETEND disable at EL0 using AArch32", "enums": [{ "0": "SETEND permitted" }, { "1": "SETEND disabled" }] },
+      { "name": "UMA", "bits": "9", "description": "User Mask Access - traps execution of MSR/MRS at EL0 to EL1", "enums": [{ "0": "no trap" }, { "1": "trap" }] },
+      { "name": "EnRCTX", "bits": "10", "description": "Enable EL1&0 register context switching", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "EOS", "bits": "11", "description": "Exception Exit Context Synchronization", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "I", "bits": "12", "description": "Instruction cache enable", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "nTWE", "bits": "18", "description": "WFE trap to EL1", "enums": [{ "0": "WFE trapped" }, { "1": "WFE not trapped" }] },
+      { "name": "nTWI", "bits": "16", "description": "WFI trap to EL1", "enums": [{ "0": "WFI trapped" }, { "1": "WFI not trapped" }] },
+      { "name": "WXN", "bits": "19", "description": "Write permission implies XN", "enums": [{ "0": "W^X disabled" }, { "1": "W^X enabled" }] },
+      { "name": "EE", "bits": "25", "description": "Exception Endianness", "enums": [{ "0": "little-endian" }, { "1": "big-endian" }] },
+      { "name": "EIS", "bits": "15, 22, 23, 24, 26-28", "description": "Exception Entry/Return Instruction State (discontinuous bits example)" },
+      { "name": "EnIA", "bits": "31", "description": "Enable instruction access for stage 1", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "EnIB", "bits": "30", "description": "Enable instruction access for stage 2", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "EnDA", "bits": "27", "description": "Enable data access for stage 1", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "TCF", "bits": "40", "description": "Tag Check Fault generation", "enums": [{ "0": "none" }, { "1": "synchronous" }, { "2": "asynchronous" }, { "3": "synchronous and asynchronous" }] },
+      { "name": "TCF0", "bits": "39", "description": "Tag Check Fault generation for EL0", "enums": [{ "0": "none" }, { "1": "synchronous" }, { "2": "asynchronous" }, { "3": "synchronous and asynchronous" }] },
+      { "name": "ATA", "bits": "43", "description": "Allocation Tag Access", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "ATA0", "bits": "42", "description": "Allocation Tag Access for EL0", "enums": [{ "0": "disabled" }, { "1": "enabled" }] }
+    ]
+  }
+}

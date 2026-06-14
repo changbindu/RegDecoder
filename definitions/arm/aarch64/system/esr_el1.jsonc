@@ -1,0 +1,40 @@
+{
+  // ARMv8-A ESR_EL1 (Exception Syndrome Register, EL1)
+  // Reference: ARM DDI 0487, Section D23.2
+  "register": {
+    "name": "ESR_EL1",
+    "width": 64,
+    "description": "Exception Syndrome Register (EL1) - Holds syndrome information for exceptions taken to EL1",
+    "fields": [
+      { "name": "EC", "bits": "26-31", "description": "Exception Class - indicates the reason for the exception",
+        "enums": [
+          { "0": "Unknown reason" },
+          { "1": "Trapped WFI/WFE execution" },
+          { "3": "Trapped MCR/MRC access (CP15)" },
+          { "4": "Trapped MCRR/MRRC access (CP15)" },
+          { "5": "Trapped MCR/MRC access (CP14)" },
+          { "6": "Trapped LDC/STC access (CP14)" },
+          { "7": "FP/SIMD trapped access" },
+          { "8": "Trapped MSR/MRS access (CP15)" },
+          { "12": "PAC failure" },
+          { "17": "SVC instruction (AArch32)" },
+          { "18": "HVC instruction (AArch32)" },
+          { "21": "SMC instruction (AArch32)" },
+          { "32": "Instruction Abort from lower EL" },
+          { "33": "Instruction Abort from same EL" },
+          { "36": "Data Abort from lower EL" },
+          { "37": "Data Abort from same EL" },
+          { "40": "SP alignment fault" },
+          { "54": "FP exception from AArch64" },
+          { "56": "SVC instruction (AArch64)" },
+          { "57": "HVC instruction (AArch64)" },
+          { "61": "SMC instruction (AArch64)" },
+          { "60": "BRK instruction" },
+          { "48": "Msr exception (AArch64)" }
+        ]
+      },
+      { "name": "IL", "bits": "25", "description": "Instruction Length (0=16-bit, 1=32-bit)", "enums": [{ "0": "16-bit instruction" }, { "1": "32-bit instruction" }] },
+      { "name": "ISS", "bits": "0-24", "description": "Instruction Specific Syndrome (encoding depends on EC field)" }
+    ]
+  }
+}

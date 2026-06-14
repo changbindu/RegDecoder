@@ -1,0 +1,19 @@
+{
+  // ARMv8-A CurrentEL (Current Exception Level)
+  // Reference: ARM DDI 0487, Section D23.2
+  "register": {
+    "name": "CurrentEL",
+    "width": 32,
+    "description": "Current Exception Level - Returns the current exception level",
+    "fields": [
+      { "name": "EL", "bits": "2-3", "description": "Current Exception Level",
+        "enums": [
+          { "0": "EL0 - User/Application" },
+          { "1": "EL1 - Kernel/OS" },
+          { "2": "EL2 - Hypervisor" },
+          { "3": "EL3 - Secure Monitor" }
+        ]
+      }
+    ]
+  }
+}

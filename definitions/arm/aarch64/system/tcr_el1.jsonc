@@ -1,0 +1,31 @@
+{
+  // ARMv8-A TCR_EL1 (Translation Control Register, EL1)
+  // Reference: ARM DDI 0487, Section D23.2
+  "register": {
+    "name": "TCR_EL1",
+    "width": 64,
+    "description": "Translation Control Register (EL1) - Controls stage 1 translation for EL1&0",
+    "fields": [
+      { "name": "T0SZ", "bits": "0-5", "description": "Size offset of memory region addressed by TTBR0", "enums": [{ "0": "4GB (32-bit IPA)" }, { "16": "256TB (48-bit IPA)" }, { "25": "512GB (39-bit IPA)" }] },
+      { "name": "EPD0", "bits": "7", "description": "TTBR0_EL1 translation table walk disable", "enums": [{ "0": "walk enabled" }, { "1": "walk disabled (TLB-only)" }] },
+      { "name": "IRGN0", "bits": "8-9", "description": "Inner cacheability for TTBR0 walks", "enums": [{ "0": "Non-cacheable" }, { "1": "Write-Back RA" }, { "2": "Write-Through RA" }, { "3": "Write-Back RAWA" }] },
+      { "name": "ORGN0", "bits": "10-11", "description": "Outer cacheability for TTBR0 walks", "enums": [{ "0": "Non-cacheable" }, { "1": "Write-Back RA" }, { "2": "Write-Through RA" }, { "3": "Write-Back RAWA" }] },
+      { "name": "SH0", "bits": "12-13", "description": "Shareability for TTBR0 walks", "enums": [{ "0": "Non-shareable" }, { "2": "Outer Shareable" }, { "3": "Inner Shareable" }] },
+      { "name": "TG0", "bits": "14-15", "description": "Granule size for TTBR0", "enums": [{ "0": "4KB" }, { "1": "64KB" }, { "2": "16KB" }, { "3": "16KB" }] },
+      { "name": "T1SZ", "bits": "16-21", "description": "Size offset of memory region addressed by TTBR1", "enums": [{ "0": "4GB" }, { "16": "256TB" }] },
+      { "name": "EPD1", "bits": "23", "description": "TTBR1_EL1 translation table walk disable", "enums": [{ "0": "walk enabled" }, { "1": "walk disabled" }] },
+      { "name": "IRGN1", "bits": "24-25", "description": "Inner cacheability for TTBR1 walks", "enums": [{ "0": "Non-cacheable" }, { "1": "Write-Back RA" }, { "2": "Write-Through RA" }, { "3": "Write-Back RAWA" }] },
+      { "name": "ORGN1", "bits": "26-27", "description": "Outer cacheability for TTBR1 walks", "enums": [{ "0": "Non-cacheable" }, { "1": "Write-Back RA" }, { "2": "Write-Through RA" }, { "3": "Write-Back RAWA" }] },
+      { "name": "SH1", "bits": "28-29", "description": "Shareability for TTBR1 walks", "enums": [{ "0": "Non-shareable" }, { "2": "Outer Shareable" }, { "3": "Inner Shareable" }] },
+      { "name": "TG1", "bits": "30-31", "description": "Granule size for TTBR1", "enums": [{ "0": "4KB" }, { "1": "64KB" }, { "3": "16KB" }] },
+      { "name": "IPS", "bits": "32-34", "description": "Intermediate Physical Address Size", "enums": [{ "0": "32 bits (4GB)" }, { "1": "36 bits (64GB)" }, { "2": "40 bits (1TB)" }, { "3": "42 bits (4TB)" }, { "4": "44 bits (16TB)" }, { "5": "48 bits (256TB)" }] },
+      { "name": "AS", "bits": "36", "description": "ASID size", "enums": [{ "0": "8-bit ASID" }, { "1": "16-bit ASID" }] },
+      { "name": "TBI0", "bits": "37", "description": "Top Byte Ignore for TTBR0", "enums": [{ "0": "TBI disabled" }, { "1": "TBI enabled" }] },
+      { "name": "TBI1", "bits": "38", "description": "Top Byte Ignore for TTBR1", "enums": [{ "0": "TBI disabled" }, { "1": "TBI enabled" }] },
+      { "name": "HA", "bits": "39", "description": "Hardware Access flag", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "HD", "bits": "40", "description": "Hardware Dirty management", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "HPD0", "bits": "41", "description": "Hierarchical Permission Disable for TTBR0", "enums": [{ "0": "disabled" }, { "1": "enabled" }] },
+      { "name": "HPD1", "bits": "42", "description": "Hierarchical Permission Disable for TTBR1", "enums": [{ "0": "disabled" }, { "1": "enabled" }] }
+    ]
+  }
+}
