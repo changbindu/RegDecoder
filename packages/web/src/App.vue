@@ -42,6 +42,7 @@
 
           <template v-if="regState.decodeResult.value">
             <div class="border rounded p-3 bg-gray-50">
+              <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Bit Map</h3>
               <BitMap
                 :result="regState.decodeResult.value"
                 :register="regState.selectedRegister.value"
@@ -51,6 +52,7 @@
             </div>
 
             <div class="relative">
+              <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Field Details</h3>
               <FieldCards :result="regState.decodeResult.value" />
             </div>
 
