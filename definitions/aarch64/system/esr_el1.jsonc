@@ -1,40 +1,152 @@
 {
   // ARMv8-A ESR_EL1 (Exception Syndrome Register, EL1)
-  // Reference: ARM DDI 0487, Section D23.2
+  // Reference: ARM DDI 0487 (Architecture Reference Manual)
+  //            ARM DDI 0595/2020-12
   "register": {
     "name": "ESR_EL1",
     "width": 64,
     "description": "Exception Syndrome Register (EL1) - Holds syndrome information for exceptions taken to EL1",
     "fields": [
+      { "name": "ISS2", "bits": "32-36", "description": "Instruction Specific Syndrome 2 (for Data Aborts with FEAT_LS64/LS64_V)" },
       { "name": "EC", "bits": "26-31", "description": "Exception Class - indicates the reason for the exception",
         "enums": [
           { "0": "Unknown reason" },
           { "1": "Trapped WFI/WFE execution" },
-          { "3": "Trapped MCR/MRC access (CP15)" },
-          { "4": "Trapped MCRR/MRRC access (CP15)" },
-          { "5": "Trapped MCR/MRC access (CP14)" },
-          { "6": "Trapped LDC/STC access (CP14)" },
-          { "7": "FP/SIMD trapped access" },
-          { "8": "Trapped MSR/MRS access (CP15)" },
-          { "12": "PAC failure" },
+          { "3": "Trapped MCR/MRC access (AArch32 CP15)" },
+          { "4": "Trapped MCRR/MRRC access (AArch32 CP15)" },
+          { "5": "Trapped MCR/MRC access (AArch32 CP14)" },
+          { "6": "Trapped LDC/STC or SIMD/FP (AArch32 CP14)" },
+          { "7": "Access to SIMD/FP trapped" },
+          { "10": "Trapped LD64B/ST64B* (FEAT_LS64)" },
+          { "12": "Trapped MRRC access (AArch32 CP14)" },
+          { "13": "Branch Target Exception (BTI)" },
+          { "14": "Illegal Execution State" },
           { "17": "SVC instruction (AArch32)" },
-          { "18": "HVC instruction (AArch32)" },
-          { "21": "SMC instruction (AArch32)" },
-          { "32": "Instruction Abort from lower EL" },
-          { "33": "Instruction Abort from same EL" },
-          { "36": "Data Abort from lower EL" },
-          { "37": "Data Abort from same EL" },
-          { "40": "SP alignment fault" },
-          { "54": "FP exception from AArch64" },
-          { "56": "SVC instruction (AArch64)" },
-          { "57": "HVC instruction (AArch64)" },
-          { "61": "SMC instruction (AArch64)" },
-          { "60": "BRK instruction" },
-          { "48": "Msr exception (AArch64)" }
+          { "21": "SVC instruction (AArch64)" },
+          { "22": "HVC instruction (AArch64)" },
+          { "23": "SMC instruction (AArch64)" },
+          { "24": "Trapped MSR/MRS/SYS/SYSL (AArch64)" },
+          { "25": "Access to SVE/SME trapped" },
+          { "28": "Pointer Authentication failure (PAC)" },
+          { "32": "Instruction Abort, lower Exception level" },
+          { "33": "Instruction Abort, same Exception level" },
+          { "34": "PC Alignment Fault" },
+          { "36": "Data Abort, lower Exception level" },
+          { "37": "Data Abort, same Exception level" },
+          { "38": "SP Alignment Fault" },
+          { "40": "FP trapped (AArch32)" },
+          { "44": "FP trapped (AArch64)" },
+          { "47": "SError interrupt" },
+          { "48": "Breakpoint, lower Exception level" },
+          { "49": "Breakpoint, same Exception level" },
+          { "50": "Software Step, lower Exception level" },
+          { "51": "Software Step, same Exception level" },
+          { "52": "Watchpoint, lower Exception level" },
+          { "53": "Watchpoint, same Exception level" },
+          { "56": "BKPT instruction (AArch32)" },
+          { "60": "BRK instruction (AArch64)" }
         ]
       },
-      { "name": "IL", "bits": "25", "description": "Instruction Length (0=16-bit, 1=32-bit)", "enums": [{ "0": "16-bit instruction" }, { "1": "32-bit instruction" }] },
-      { "name": "ISS", "bits": "0-24", "description": "Instruction Specific Syndrome (encoding depends on EC field)" }
+      { "name": "IL", "bits": "25", "description": "Instruction Length for synchronous exceptions",
+        "enums": [
+          { "0": "16-bit instruction trapped" },
+          { "1": "32-bit instruction trapped" }
+        ]
+      },
+      { "name": "ISS", "bits": "0-24", "description": "Instruction Specific Syndrome (encoding depends on EC field)" },
+
+      // Common ISS sub-fields for Data Aborts (EC 36/37)
+      // These overlap with ISS[24:0] — the decoder extracts each independently
+      { "name": "ISV", "bits": "24", "description": "Instruction Syndrome Valid (Data Abort)",
+        "enums": [
+          { "0": "No valid instruction syndrome (ISS is RES0)" },
+          { "1": "ISS is valid for instruction syndrome" }
+        ]
+      },
+      { "name": "RES0_ISS", "bits": "14-23", "description": "Reserved (RES0 in ISS field)" },
+      { "name": "VNCR", "bits": "13", "description": "VNCR bit (FEAT_NV2)" },
+      { "name": "SET", "bits": "11-12", "description": "Synchronous Error Type (Data Abort)",
+        "enums": [
+          { "0": "Recoverable (UER)" },
+          { "1": "Recoverable (UER)" },
+          { "2": "Restartable (UC)" },
+          { "3": "Recoverable (UER)" }
+        ]
+      },
+      { "name": "FnV", "bits": "10", "description": "FAR not Valid (Data Abort)",
+        "enums": [
+          { "0": "FAR is valid" },
+          { "1": "FAR is not valid" }
+        ]
+      },
+      { "name": "EA", "bits": "9", "description": "External Abort type (Data Abort)",
+        "enums": [
+          { "0": "Not an External abort" },
+          { "1": "External abort" }
+        ]
+      },
+      { "name": "CM", "bits": "8", "description": "Cache Maintenance (Data Abort)",
+        "enums": [
+          { "0": "Not Cache Maintenance" },
+          { "1": "Cache Maintenance instruction" }
+        ]
+      },
+      { "name": "S1PTW", "bits": "7", "description": "Stage 1 Permission Table Walk (Data Abort)",
+        "enums": [
+          { "0": "Not a stage 1 table walk" },
+          { "1": "Stage 1 translation table walk" }
+        ]
+      },
+      { "name": "WnR", "bits": "6", "description": "Write not Read (Data Abort)",
+        "enums": [
+          { "0": "Abort caused by reading" },
+          { "1": "Abort caused by writing" }
+        ]
+      },
+      { "name": "DFSC", "bits": "0-5", "description": "Data Fault Status Code (Data Abort)",
+        "enums": [
+          { "0": "Address Size Fault, level 0" },
+          { "1": "Address Size Fault, level 1" },
+          { "2": "Address Size Fault, level 2" },
+          { "3": "Address Size Fault, level 3" },
+          { "4": "Translation Fault, level 0" },
+          { "5": "Translation Fault, level 1" },
+          { "6": "Translation Fault, level 2" },
+          { "7": "Translation Fault, level 3" },
+          { "8": "Access Flag Fault, level 0" },
+          { "9": "Access Flag Fault, level 1" },
+          { "10": "Access Flag Fault, level 2" },
+          { "11": "Access Flag Fault, level 3" },
+          { "12": "Permission Fault, level 0" },
+          { "13": "Permission Fault, level 1" },
+          { "14": "Permission Fault, level 2" },
+          { "15": "Permission Fault, level 3" },
+          { "16": "Synchronous External Abort (not on table walk)" },
+          { "17": "Synchronous Tag Check Fault" },
+          { "18": "Synchronous External Abort (table walk, level 0)" },
+          { "19": "Synchronous External Abort (table walk, level 1)" },
+          { "20": "Synchronous External Abort (table walk, level 2)" },
+          { "21": "Synchronous External Abort (table walk, level 3)" },
+          { "22": "Synchronous Parity/ECC Error (not on table walk)" },
+          { "23": "Synchronous Parity/ECC Error (table walk, level 0)" },
+          { "24": "Synchronous Parity/ECC Error (table walk, level 1)" },
+          { "25": "Synchronous Parity/ECC Error (table walk, level 2)" },
+          { "26": "Synchronous Parity/ECC Error (table walk, level 3)" },
+          { "27": "Synchronous External Abort (translation table, level 0)" },
+          { "28": "Synchronous External Abort (translation table, level 1)" },
+          { "29": "Synchronous External Abort (translation table, level 2)" },
+          { "30": "Synchronous External Abort (translation table, level 3)" },
+          { "48": "Access Flag Fault, level 0 (TTE not in Inner WB/WA)" },
+          { "49": "Access Flag Fault, level 1 (TTE not in Inner WB/WA)" },
+          { "50": "Access Flag Fault, level 2 (TTE not in Inner WB/WA)" },
+          { "51": "Access Flag Fault, level 3 (TTE not in Inner WB/WA)" },
+          { "52": "Permission Fault, level 0 (TTE not in Inner WB/WA)" },
+          { "53": "Permission Fault, level 1 (TTE not in Inner WB/WA)" },
+          { "54": "Permission Fault, level 2 (TTE not in Inner WB/WA)" },
+          { "55": "Permission Fault, level 3 (TTE not in Inner WB/WA)" },
+          { "60": "Alignment Fault" }
+        ]
+      }
     ]
   }
 }
