@@ -90,16 +90,15 @@ describe('parseBitPositions', () => {
 
 describe('buildTree', () => {
   it('builds tree from single file', () => {
-    const defs = { 'arm/aarch64/system/sctlr.jsonc': '...' };
+    const defs = { 'aarch64/system/sctlr.jsonc': '...' };
     const tree = buildTree(defs);
     expect(tree).toHaveLength(1);
-    expect(tree[0].name).toBe('arm');
+    expect(tree[0].name).toBe('aarch64');
     expect(tree[0].type).toBe('directory');
     expect(tree[0].children).toHaveLength(1);
-    expect(tree[0].children![0].name).toBe('aarch64');
-    expect(tree[0].children![0].children![0].name).toBe('system');
-    expect(tree[0].children![0].children![0].children![0].name).toBe('sctlr');
-    expect(tree[0].children![0].children![0].children![0].type).toBe('file');
+    expect(tree[0].children![0].name).toBe('system');
+    expect(tree[0].children![0].children![0].name).toBe('sctlr');
+    expect(tree[0].children![0].children![0].type).toBe('file');
   });
 
   it('returns empty for empty input', () => {
@@ -108,19 +107,19 @@ describe('buildTree', () => {
 
   it('handles multiple files in same directory', () => {
     const defs = {
-      'arm/aarch64/system/sctlr.jsonc': '...',
-      'arm/aarch64/system/tcr.jsonc': '...',
+      'aarch64/system/sctlr.jsonc': '...',
+      'aarch64/system/tcr.jsonc': '...',
     };
     const tree = buildTree(defs);
-    const files = tree[0].children![0].children![0].children!;
+    const files = tree[0].children![0].children!;
     expect(files).toHaveLength(2);
     expect(files.map(f => f.name)).toContain('sctlr');
     expect(files.map(f => f.name)).toContain('tcr');
   });
 
   it('removes leading dot prefix from glob paths', () => {
-    const defs = { './arm/aarch64/system/test.jsonc': '...' };
+    const defs = { './aarch64/system/test.jsonc': '...' };
     const tree = buildTree(defs);
-    expect(tree[0].name).toBe('arm');
+    expect(tree[0].name).toBe('aarch64');
   });
 });

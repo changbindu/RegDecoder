@@ -85,7 +85,7 @@ import FieldCards from './components/FieldCards.vue';
 import { useRegDecoder } from './composables/useRegDecoder';
 
 // Load definitions via Vite glob
-const definitionsRaw = import.meta.glob('../../definitions/arm/aarch64/system/*.jsonc', {
+const definitionsRaw = import.meta.glob('../../../definitions/aarch64/system/*.jsonc', {
   query: '?raw',
   import: 'default',
   eager: true,

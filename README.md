@@ -21,7 +21,7 @@ regdecoder/
 │   ├── web/       # Vue 3 + Vite + Tailwind SPA with SVG bit-map visualization
 │   └── cli/       # Commander.js CLI with Chalk + Cli-Table3 output
 ├── definitions/   # JSONC register definition tree
-│   └── arm/aarch64/system/
+│   └── arm/system/
 │       ├── sctlr_el1.jsonc      # System Control Register
 │       ├── tcr_el1.jsonc        # Translation Control Register
 │       ├── esr_el1.jsonc        # Exception Syndrome Register

@@ -162,7 +162,7 @@ export function parseBitPositions(bitsStr: string): number[] {
 /**
  * Build a directory tree from a map of file paths to content.
  * Input is typically from import.meta.glob with { as: 'raw', eager: true }.
- * Path example: "arm/aarch64/system/sctlr_el1.jsonc"
+ * Path example: "arm/system/sctlr_el1.jsonc"
  */
 export function buildTree(
   definitions: Record<string, string>
