@@ -1,0 +1,71 @@
+{
+  // x86-64 Control Register 4 (CR4)
+  // Reference: Intel SDM Vol.3A, Section 2.5
+  "register": {
+    "name": "CR4",
+    "width": 64,
+    "description": "Control Register 4 - Extended control flags for architectural features",
+    "fields": [
+      { "name": "CET", "bits": "23", "description": "Control-flow Enforcement Technology",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      },
+      { "name": "PKE", "bits": "22", "description": "Protection Key Enable",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      },
+      { "name": "SMAP", "bits": "21", "description": "Supervisor Mode Access Prevention",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      },
+      { "name": "SMEP", "bits": "20", "description": "Supervisor Mode Execution Prevention",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      },
+      { "name": "OSXSAVE", "bits": "18", "description": "XSAVE and Processor Extended States Enable",
+        "enums": [{ "0": "Not enabled by OS" }, { "1": "Enabled by OS" }]
+      },
+      { "name": "PCIDE", "bits": "17", "description": "PCID Enable",
+        "enums": [{ "0": "Disabled" }, { "1": "Process-Context Identifiers enabled" }]
+      },
+      { "name": "FSGSBASE", "bits": "16", "description": "FSGSBASE instruction enable",
+        "enums": [{ "0": "RDFSBASE/RDGSBASE not allowed" }, { "1": "Allowed in any privilege level" }]
+      },
+      { "name": "SMXE", "bits": "14", "description": "Safer Mode Extensions Enable",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      },
+      { "name": "VMXE", "bits": "13", "description": "Virtual Machine Extensions Enable",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      },
+      { "name": "OSXMMEXCPT", "bits": "10", "description": "OS Unmasked Exception Support",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      },
+      { "name": "OSFXSR", "bits": "9", "description": "OS FXSAVE/FXRSTOR Support",
+        "enums": [{ "0": "Not supported" }, { "1": "Supported" }]
+      },
+      { "name": "PCE", "bits": "8", "description": "Performance-Monitoring Counter Enable",
+        "enums": [{ "0": "RDPMC only in ring 0" }, { "1": "RDPMC allowed in any ring" }]
+      },
+      { "name": "PGE", "bits": "7", "description": "Page Global Enable",
+        "enums": [{ "0": "Disabled" }, { "1": "Global pages enabled" }]
+      },
+      { "name": "MCE", "bits": "6", "description": "Machine Check Enable",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      },
+      { "name": "PAE", "bits": "5", "description": "Physical Address Extension",
+        "enums": [{ "0": "Disabled" }, { "1": "PAE paging enabled" }]
+      },
+      { "name": "PSE", "bits": "4", "description": "Page Size Extension",
+        "enums": [{ "0": "4KB pages only" }, { "1": "4MB pages allowed" }]
+      },
+      { "name": "DE", "bits": "3", "description": "Debugging Extensions",
+        "enums": [{ "0": "Disabled" }, { "1": "I/O breakpoints enabled" }]
+      },
+      { "name": "TSD", "bits": "2", "description": "Time Stamp Disable",
+        "enums": [{ "0": "RDTSC allowed all rings" }, { "1": "RDTSC only ring 0" }]
+      },
+      { "name": "PVI", "bits": "1", "description": "Protected-Mode Virtual Interrupts",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      },
+      { "name": "VME", "bits": "0", "description": "Virtual 8086 Mode Extensions",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  // x86-64 Control Register 2 (CR2) - Page Fault Linear Address
+  // Reference: Intel SDM Vol.3A, Section 2.5
+  "register": {
+    "name": "CR2",
+    "width": 64,
+    "description": "Control Register 2 - Contains the linear address that caused a page fault (#PF)",
+    "fields": [
+      { "name": "PFLA", "bits": "0-63", "description": "Page Fault Linear Address - 64-bit linear address that triggered the page fault" }
+    ]
+  }
+}

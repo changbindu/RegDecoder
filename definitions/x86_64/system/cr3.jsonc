@@ -1,0 +1,18 @@
+{
+  // x86-64 Control Register 3 (CR3) - Page Directory Base Register
+  // Reference: Intel SDM Vol.3A, Section 2.5
+  "register": {
+    "name": "CR3",
+    "width": 64,
+    "description": "Control Register 3 - Physical address of the PML4/page directory base",
+    "fields": [
+      { "name": "PML4", "bits": "12-63", "description": "Physical address of the PML4 table (4KB-aligned, bits 51:12 in physical)" },
+      { "name": "PCD", "bits": "4", "description": "Page-level Cache Disable",
+        "enums": [{ "0": "Page-level caching enabled" }, { "1": "Page-level caching disabled" }]
+      },
+      { "name": "PWT", "bits": "3", "description": "Page-level Write-Through",
+        "enums": [{ "0": "Write-back caching" }, { "1": "Write-through caching" }]
+      }
+    ]
+  }
+}

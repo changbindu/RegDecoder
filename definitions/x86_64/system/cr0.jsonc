@@ -1,0 +1,42 @@
+{
+  // x86-64 Control Register 0 (CR0)
+  // Reference: Intel SDM Vol.3A, Section 2.5
+  "register": {
+    "name": "CR0",
+    "width": 64,
+    "description": "Control Register 0 - System control flags for processor operating mode",
+    "fields": [
+      { "name": "PG", "bits": "31", "description": "Paging enable",
+        "enums": [{ "0": "Paging disabled" }, { "1": "Paging enabled" }]
+      },
+      { "name": "CD", "bits": "30", "description": "Cache Disable",
+        "enums": [{ "0": "Caching enabled" }, { "1": "Caching disabled" }]
+      },
+      { "name": "NW", "bits": "29", "description": "Not Write-through",
+        "enums": [{ "0": "Write-through enabled" }, { "1": "Write-back enabled" }]
+      },
+      { "name": "AM", "bits": "18", "description": "Alignment Mask",
+        "enums": [{ "0": "Alignment checking disabled" }, { "1": "Alignment checking enabled (when AM=1 in EFLAGS)" }]
+      },
+      { "name": "WP", "bits": "16", "description": "Write Protect",
+        "enums": [{ "0": "Supervisor can write read-only pages" }, { "1": "Supervisor write-protected as user" }]
+      },
+      { "name": "NE", "bits": "5", "description": "Numeric Error",
+        "enums": [{ "0": "FPU errors via external interrupt" }, { "1": "FPU errors via exception 16" }]
+      },
+      { "name": "ET", "bits": "4", "description": "Extension Type (hardwired to 1)" },
+      { "name": "TS", "bits": "3", "description": "Task Switched",
+        "enums": [{ "0": "No task switch" }, { "1": "Task switched - FPU context may be stale" }]
+      },
+      { "name": "EM", "bits": "2", "description": "Emulation",
+        "enums": [{ "0": "x87 FPU present" }, { "1": "No x87 FPU - emulation" }]
+      },
+      { "name": "MP", "bits": "1", "description": "Monitor Coprocessor",
+        "enums": [{ "0": "WAIT/FWAIT ignore TS" }, { "1": "WAIT/FWAIT check TS" }]
+      },
+      { "name": "PE", "bits": "0", "description": "Protection Enable",
+        "enums": [{ "0": "Real mode" }, { "1": "Protected mode" }]
+      }
+    ]
+  }
+}

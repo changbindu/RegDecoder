@@ -1,0 +1,35 @@
+{
+  // x86-64 Extended Feature Enable Register (EFER) - MSR 0xC0000080
+  // Reference: AMD64 Architecture Programmer's Manual, Volume 2, Section 3.1.7
+  "register": {
+    "name": "EFER",
+    "width": 64,
+    "description": "Extended Feature Enable Register (MSR 0xC0000080) - Controls long mode and feature enables",
+    "fields": [
+      { "name": "TCE", "bits": "15", "description": "Translation Cache Extension",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      },
+      { "name": "FFXSR", "bits": "14", "description": "Fast FXSAVE/FXRSTOR",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled (64-bit FXSAVE)" }]
+      },
+      { "name": "LMSLE", "bits": "13", "description": "Long Mode Segment Limit Enable",
+        "enums": [{ "0": "Disabled" }, { "1": "Enabled" }]
+      },
+      { "name": "SVME", "bits": "12", "description": "Secure Virtual Machine Enable",
+        "enums": [{ "0": "Disabled" }, { "1": "SVM enabled" }]
+      },
+      { "name": "NXE", "bits": "11", "description": "No-Execute Enable",
+        "enums": [{ "0": "NX bit disabled" }, { "1": "Execute-disable bit enabled" }]
+      },
+      { "name": "LMA", "bits": "10", "description": "Long Mode Active (read-only)",
+        "enums": [{ "0": "Not in long mode" }, { "1": "Long mode active" }]
+      },
+      { "name": "LME", "bits": "8", "description": "Long Mode Enable",
+        "enums": [{ "0": "Disabled" }, { "1": "Long mode enabled" }]
+      },
+      { "name": "SCE", "bits": "0", "description": "System Call Extensions",
+        "enums": [{ "0": "Disabled" }, { "1": "SYSCALL/SYSRET enabled" }]
+      }
+    ]
+  }
+}
