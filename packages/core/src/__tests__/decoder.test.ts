@@ -136,7 +136,7 @@ describe('decode', () => {
     ]);
     const r = decode(reg, 0n);
     expect(r.fields[0].name).toBe('HI');
-    expect(r.fields[1].name).toBe('RESERVED');
+    expect(r.fields[1].name).toBe('Reserved');
     expect(r.fields[2].name).toBe('MID');
     expect(r.fields[3].name).toBe('LO');
     // RESERVED after if present

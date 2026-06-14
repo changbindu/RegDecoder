@@ -99,7 +99,7 @@ export function decode(register: Register, value: bigint): DecodeResult {
     }
     
     decodedFields.push({
-      name: 'RESERVED',
+      name: 'Reserved',
       bits: formatBitsRange(reservedPositions),
       bitPositions: reservedPositions,
       rawValue: reservedValue,
