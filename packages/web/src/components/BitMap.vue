@@ -148,7 +148,8 @@ const tooltipX = computed(() => {
 const tooltipY = computed(() => {
   if (!hoveredFieldName.value) return 0;
   const cell = cells.value.find(c => c.fieldName === hoveredFieldName.value);
-  return cell ? cell.y - 18 : 0;
+  if (!cell) return 0;
+  return cell.y < 18 ? cell.y + CELL_SIZE + 4 : cell.y - 18;
 });
 
 const tooltipTextWidth = computed(() => {

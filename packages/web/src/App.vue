@@ -96,7 +96,7 @@ import BitMap from './components/BitMap.vue';
 import FieldCards from './components/FieldCards.vue';
 import { useRegDecoder } from './composables/useRegDecoder';
 
-const definitionsRaw = import.meta.glob('../../../definitions/{aarch64,riscv64,x86_64}/system/*.jsonc', {
+const definitionsRaw = import.meta.glob('../../../definitions/{aarch64,riscv64,x86_64}/**/*.jsonc', {
   query: '?raw',
   import: 'default',
   eager: true,
