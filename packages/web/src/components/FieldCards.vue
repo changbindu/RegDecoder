@@ -1,33 +1,30 @@
 <template>
-  <div class="space-y-3">
+  <div class="space-y-1.5">
     <div
       v-for="(field, idx) in visibleFields"
       :key="idx"
       :data-field="field.name"
-      class="border-2 rounded-lg bg-white shadow-sm"
+      class="border rounded bg-white"
       :style="{ borderColor: getFieldColor(idx) }"
     >
-      <div class="p-3">
-        <!-- Header: name + bits -->
-        <div class="flex items-baseline gap-2 mb-2">
-          <span class="font-bold text-sm text-gray-900">
+      <div class="px-2 py-1">
+        <!-- Line 1: name + bits + value -->
+        <div class="flex items-baseline gap-1.5 flex-wrap">
+          <span class="font-bold text-[11px] text-gray-900 whitespace-nowrap">
             {{ field.name }}
           </span>
-          <span class="text-[11px] text-gray-400 font-mono">
-            bits [{{ field.bits }}]
+          <span class="text-[10px] text-gray-400 font-mono whitespace-nowrap">
+            [{{ field.bits }}]
+          </span>
+          <span class="font-mono text-[11px] whitespace-nowrap" :class="getValueClass(field)">
+            {{ field.binary }}
+          </span>
+          <span class="text-[10px] text-gray-400 font-mono whitespace-nowrap">
+            ({{ field.hex }})
           </span>
         </div>
-
-        <!-- Value -->
-        <div
-          class="font-mono text-sm px-2 py-1 rounded bg-gray-50 border border-gray-100 mb-2"
-          :class="getValueClass(field)"
-        >
-          {{ field.binary }} <span class="text-gray-400">({{ field.hex }})</span>
-        </div>
-
-        <!-- Description / Enum match -->
-        <div class="text-sm leading-relaxed" :class="getDescClass(field)">
+        <!-- Line 2: description -->
+        <div class="text-[10px] leading-tight mt-0.5" :class="getDescClass(field)">
           {{ field.enumMatch ?? field.description }}
         </div>
       </div>
@@ -56,11 +53,11 @@ function getFieldColor(idx: number): string {
 
 function getValueClass(field: DecodedField): string {
   if (field.enumMatch !== undefined) return 'text-green-700';
-  return 'text-gray-700';
+  return 'text-gray-600';
 }
 
 function getDescClass(field: DecodedField): string {
-  if (field.enumMatch !== undefined) return 'text-green-700 font-medium';
-  return 'text-gray-500';
+  if (field.enumMatch !== undefined) return 'text-green-600';
+  return 'text-gray-400';
 }
 </script>
