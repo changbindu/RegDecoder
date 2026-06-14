@@ -172,7 +172,7 @@ export function buildTree(
   
   for (const [rawPath] of Object.entries(definitions)) {
     // Normalize path: remove leading . or /, keep only the logical path
-    const path = rawPath.replace(/^\.?\//, '').replace(/\.jsonc$/, '');
+    const path = rawPath.replace(/^(?:\.\.\/|\.\/)+/, '').replace(/^\/+/, '').replace(/^definitions\//, '').replace(/\.jsonc$/, '');
     const parts = path.split('/');
     
     let currentLevel = root;

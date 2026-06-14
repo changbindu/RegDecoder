@@ -66,10 +66,16 @@ function filterNodes(nodes: TreeNode[], query: string): TreeNode[] {
   return results;
 }
 
+function findDefinitionContent(definitions: Record<string, string>, nodePath: string): string | undefined {
+  for (const [key, value] of Object.entries(definitions)) {
+    if (key.endsWith(`/${nodePath}.jsonc`)) return value;
+  }
+}
+
 function onSelect(node: TreeNode) {
   if (node.type === 'file') {
     selectedPath.value = node.path;
-    const content = props.definitions[node.path + '.jsonc'] ?? props.definitions['/' + node.path + '.jsonc'];
+    const content = findDefinitionContent(props.definitions, node.path);
     if (content) {
       try {
         const reg = parseRegister(content);
