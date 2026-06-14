@@ -1,0 +1,33 @@
+{
+  // RISC-V Supervisor Cause Register (scause), RV64
+  // Reference: RISC-V Privileged Architecture, Section 10.1.8
+  "register": {
+    "name": "scause",
+    "width": 64,
+    "description": "Supervisor Cause Register - Indicates the cause of a trap taken to S-mode",
+    "fields": [
+      { "name": "Interrupt", "bits": "63", "description": "Interrupt flag",
+        "enums": [{ "0": "Exception" }, { "1": "Interrupt" }]
+      },
+      { "name": "Code", "bits": "0-62", "description": "Exception/Interrupt code",
+        "enums": [
+          { "0": "Instruction address misaligned" },
+          { "1": "Instruction access fault" },
+          { "2": "Illegal instruction" },
+          { "3": "Breakpoint" },
+          { "4": "Load address misaligned" },
+          { "5": "Load access fault" },
+          { "6": "Store/AMO address misaligned" },
+          { "7": "Store/AMO access fault" },
+          { "8": "Environment call from U-mode (ECALL)" },
+          { "9": "Environment call from S-mode (ECALL)" },
+          { "12": "Instruction page fault" },
+          { "13": "Load page fault" },
+          { "15": "Store/AMO page fault" },
+          { "18": "Software check" },
+          { "19": "Hardware error" }
+        ]
+      }
+    ]
+  }
+}

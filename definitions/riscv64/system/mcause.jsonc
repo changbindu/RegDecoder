@@ -1,0 +1,34 @@
+{
+  // RISC-V Machine Cause Register (mcause), RV64
+  // Reference: RISC-V Privileged Architecture, Section 3.1.15
+  "register": {
+    "name": "mcause",
+    "width": 64,
+    "description": "Machine Cause Register - Indicates the cause of a trap",
+    "fields": [
+      { "name": "Interrupt", "bits": "63", "description": "Interrupt flag",
+        "enums": [{ "0": "Exception" }, { "1": "Interrupt" }]
+      },
+      { "name": "Code", "bits": "0-62", "description": "Exception/Interrupt code",
+        "enums": [
+          { "0": "Instruction address misaligned" },
+          { "1": "Instruction access fault" },
+          { "2": "Illegal instruction" },
+          { "3": "Breakpoint" },
+          { "4": "Load address misaligned" },
+          { "5": "Load access fault" },
+          { "6": "Store/AMO address misaligned" },
+          { "7": "Store/AMO access fault" },
+          { "8": "Environment call from U-mode (ECALL)" },
+          { "9": "Environment call from S-mode (ECALL)" },
+          { "11": "Environment call from M-mode (ECALL)" },
+          { "12": "Instruction page fault" },
+          { "13": "Load page fault" },
+          { "15": "Store/AMO page fault" },
+          { "24": "Software check" },
+          { "25": "Hardware error" }
+        ]
+      }
+    ]
+  }
+}

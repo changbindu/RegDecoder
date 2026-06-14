@@ -1,0 +1,18 @@
+{
+  // RISC-V Machine Trap-Vector Base-Address Register (mtvec), RV64
+  // Reference: RISC-V Privileged Architecture, Section 3.1.7
+  "register": {
+    "name": "mtvec",
+    "width": 64,
+    "description": "Machine Trap-Vector Base-Address - Holds trap vector configuration",
+    "fields": [
+      { "name": "BASE", "bits": "2-63", "description": "Trap vector base address (4-byte aligned, bits 63:2)" },
+      { "name": "MODE", "bits": "0-1", "description": "Trap vector mode",
+        "enums": [
+          { "0": "Direct - all traps go to BASE address" },
+          { "1": "Vectored - async interrupts go to BASE+4×cause" }
+        ]
+      }
+    ]
+  }
+}

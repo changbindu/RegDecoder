@@ -1,0 +1,22 @@
+{
+  // RISC-V Supervisor Address Translation and Protection Register (satp), RV64
+  // Reference: RISC-V Privileged Architecture, Section 10.1.11
+  "register": {
+    "name": "satp",
+    "width": 64,
+    "description": "Supervisor Address Translation and Protection - Controls virtual memory",
+    "fields": [
+      { "name": "MODE", "bits": "60-63", "description": "Address translation mode",
+        "enums": [
+          { "0": "Bare - no translation" },
+          { "8": "Sv39 - 39-bit virtual addressing (3-level page table)" },
+          { "9": "Sv48 - 48-bit virtual addressing (4-level)" },
+          { "10": "Sv57 - 57-bit virtual addressing (5-level)" },
+          { "11": "Sv64 - 64-bit virtual addressing (6-level)" }
+        ]
+      },
+      { "name": "ASID", "bits": "44-59", "description": "Address Space Identifier (max 16 bits)" },
+      { "name": "PPN", "bits": "0-43", "description": "Physical Page Number of root page table" }
+    ]
+  }
+}

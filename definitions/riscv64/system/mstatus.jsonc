@@ -1,0 +1,74 @@
+{
+  // RISC-V Machine Status Register (mstatus), RV64
+  // Reference: RISC-V Privileged Architecture, Section 3.1.6
+  "register": {
+    "name": "mstatus",
+    "width": 64,
+    "description": "Machine Status Register - Controls the hart's current operating state",
+    "fields": [
+      { "name": "SD", "bits": "63", "description": "State Dirty - summary of FS, VS, and XS fields",
+        "enums": [{ "0": "All extensions in clean state" }, { "1": "Some extension state is dirty" }]
+      },
+      { "name": "MBE", "bits": "37", "description": "Machine Big-Endian",
+        "enums": [{ "0": "Little-endian" }, { "1": "Big-endian" }]
+      },
+      { "name": "SBE", "bits": "36", "description": "Supervisor Big-Endian",
+        "enums": [{ "0": "Little-endian" }, { "1": "Big-endian" }]
+      },
+      { "name": "SXL", "bits": "35-34", "description": "Supervisor XLEN",
+        "enums": [{ "1": "XLEN=32" }, { "2": "XLEN=64" }, { "3": "XLEN=128" }]
+      },
+      { "name": "UXL", "bits": "33-32", "description": "User XLEN",
+        "enums": [{ "1": "XLEN=32" }, { "2": "XLEN=64" }, { "3": "XLEN=128" }]
+      },
+      { "name": "TSR", "bits": "22", "description": "Trap SRET - trap supervisor return in S-mode",
+        "enums": [{ "0": "SRET allowed in S-mode" }, { "1": "SRET in S-mode raises illegal instruction" }]
+      },
+      { "name": "TW", "bits": "21", "description": "Timeout Wait - trap WFI in S/U-mode when timeout=0",
+        "enums": [{ "0": "WFI may execute normally" }, { "1": "WFI raises illegal instruction" }]
+      },
+      { "name": "TVM", "bits": "20", "description": "Trap Virtual Memory - trap SFENCE.VMA and SATP access in S-mode",
+        "enums": [{ "0": "SATP/SFENCE.VMA allowed in S-mode" }, { "1": "SATP/SFENCE.VMA trap to M-mode" }]
+      },
+      { "name": "MXR", "bits": "19", "description": "Make eXecutable Readable",
+        "enums": [{ "0": "Normal access" }, { "1": "Loads may access execute-only pages" }]
+      },
+      { "name": "SUM", "bits": "18", "description": "Supervisor User Memory access",
+        "enums": [{ "0": "S-mode cannot access U-mode memory" }, { "1": "S-mode may access U-mode memory" }]
+      },
+      { "name": "MPRV", "bits": "17", "description": "Modify PRiVilege - use MPP for load/store privilege",
+        "enums": [{ "0": "Loads/stores use normal privilege" }, { "1": "Loads/stores use MPP mode" }]
+      },
+      { "name": "XS", "bits": "16-15", "description": "Extension Status",
+        "enums": [{ "0": "Off" }, { "1": "Initial" }, { "2": "Clean" }, { "3": "Dirty" }]
+      },
+      { "name": "FS", "bits": "14-13", "description": "Float Point Status",
+        "enums": [{ "0": "Off" }, { "1": "Initial" }, { "2": "Clean" }, { "3": "Dirty" }]
+      },
+      { "name": "MPP", "bits": "12-11", "description": "Machine Previous Privilege mode",
+        "enums": [{ "0": "User" }, { "1": "Supervisor" }, { "3": "Machine" }]
+      },
+      { "name": "VS", "bits": "10-9", "description": "Vector Status",
+        "enums": [{ "0": "Off" }, { "1": "Initial" }, { "2": "Clean" }, { "3": "Dirty" }]
+      },
+      { "name": "SPP", "bits": "8", "description": "Supervisor Previous Privilege",
+        "enums": [{ "0": "User" }, { "1": "Supervisor" }]
+      },
+      { "name": "MPIE", "bits": "7", "description": "Machine Previous Interrupt Enable",
+        "enums": [{ "0": "Interrupts were disabled" }, { "1": "Interrupts were enabled" }]
+      },
+      { "name": "UBE", "bits": "6", "description": "User Big-Endian",
+        "enums": [{ "0": "Little-endian" }, { "1": "Big-endian" }]
+      },
+      { "name": "SPIE", "bits": "5", "description": "Supervisor Previous Interrupt Enable",
+        "enums": [{ "0": "Interrupts were disabled" }, { "1": "Interrupts were enabled" }]
+      },
+      { "name": "MIE", "bits": "3", "description": "Machine Interrupt Enable",
+        "enums": [{ "0": "Machine interrupts disabled" }, { "1": "Machine interrupts enabled" }]
+      },
+      { "name": "SIE", "bits": "1", "description": "Supervisor Interrupt Enable",
+        "enums": [{ "0": "Supervisor interrupts disabled" }, { "1": "Supervisor interrupts enabled" }]
+      }
+    ]
+  }
+}

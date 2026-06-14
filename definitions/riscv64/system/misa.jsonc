@@ -1,0 +1,80 @@
+{
+  // RISC-V Machine ISA Register (misa), RV64
+  // Reference: RISC-V Privileged Architecture, Section 3.1.1
+  "register": {
+    "name": "misa",
+    "width": 64,
+    "description": "Machine ISA Register - Reports the ISA supported by the hart",
+    "fields": [
+      { "name": "MXL", "bits": "63-62", "description": "Machine XLEN",
+        "enums": [{ "1": "XLEN=32" }, { "2": "XLEN=64" }, { "3": "XLEN=128" }]
+      },
+      { "name": "Ext_Z", "bits": "25", "description": "Reserved for future Z extensions" },
+      { "name": "Ext_Y", "bits": "24", "description": "Reserved for future Y extensions" },
+      { "name": "Ext_X", "bits": "23", "description": "Reserved for non-standard extensions" },
+      { "name": "Ext_V", "bits": "21", "description": "Vector extension",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_U", "bits": "20", "description": "User-Level Interrupts",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_T", "bits": "19", "description": "Transactional Memory (tentative)",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_S", "bits": "18", "description": "Supervisor mode implemented",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_Q", "bits": "16", "description": "Quad-precision floating point",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_P", "bits": "15", "description": "Packed-SIMD extension",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_O", "bits": "14", "description": "Reserved",
+        "enums": [{ "0": "Not implemented" }]
+      },
+      { "name": "Ext_N", "bits": "13", "description": "User-level interrupts",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_M", "bits": "12", "description": "Integer Multiply/Divide",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_L", "bits": "11", "description": "Reserved",
+        "enums": [{ "0": "Not implemented" }]
+      },
+      { "name": "Ext_K", "bits": "10", "description": "Reserved",
+        "enums": [{ "0": "Not implemented" }]
+      },
+      { "name": "Ext_J", "bits": "9", "description": "Reserved",
+        "enums": [{ "0": "Not implemented" }]
+      },
+      { "name": "Ext_I", "bits": "8", "description": "RV32I/64I/128I base ISA",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_H", "bits": "7", "description": "Hypervisor extension",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_G", "bits": "6", "description": "Reserved",
+        "enums": [{ "0": "Not implemented" }]
+      },
+      { "name": "Ext_F", "bits": "5", "description": "Single-precision floating point",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_E", "bits": "4", "description": "RV32E base ISA",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_D", "bits": "3", "description": "Double-precision floating point",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_C", "bits": "2", "description": "Compressed instructions",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_B", "bits": "1", "description": "Bit manipulation extension",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      },
+      { "name": "Ext_A", "bits": "0", "description": "Atomic extension",
+        "enums": [{ "0": "Not implemented" }, { "1": "Implemented" }]
+      }
+    ]
+  }
+}
