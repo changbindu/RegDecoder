@@ -46,6 +46,7 @@
               <BitMap
                 :result="regState.decodeResult.value"
                 :register="regState.selectedRegister.value"
+                :hovered-field="hoveredField"
                 @bit-click="regState.flipBit"
                 @field-hover="onFieldHover"
               />
@@ -53,7 +54,11 @@
 
             <div class="relative">
               <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Field Details</h3>
-              <FieldCards :result="regState.decodeResult.value" />
+              <FieldCards
+                :result="regState.decodeResult.value"
+                :hovered-field="hoveredField"
+                @field-hover="onFieldHover"
+              />
             </div>
 
             <!-- Connector lines overlay -->
@@ -153,23 +158,27 @@ function computePolyline(fieldName: string, container: HTMLElement): string {
   const svgRect = svgEl.getBoundingClientRect();
   const vb = svgEl.viewBox.baseVal;
 
-  // Find the field's highest bit position
-  let highestBit = -1;
+  // Find the field's bit positions
+  let bitPositions: number[] = [];
   for (const f of result.fields) {
-    if (f.name === fieldName && f.bitPositions.length > 0) {
-      highestBit = f.bitPositions[0];
+    if (f.name === fieldName) {
+      bitPositions = f.bitPositions;
       break;
     }
   }
-  if (highestBit < 0) return '';
+  if (bitPositions.length === 0) return '';
 
-  // Compute cell right edge in viewBox space
+  // Compute center of all field bits in viewBox space
   const w = result.width;
-  const COLS = 32, CELL = 30; // CELL_SIZE + CELL_GAP = 28 + 2
-  const idx = w - 1 - highestBit;
-  const col = idx % COLS;
-  const row = Math.floor(idx / COLS);
-  const vx = col * CELL + 28; // right edge of cell in viewBox
+  const COLS = 32, CELL = 30, CELL_SIZE = 28; // CELL_SIZE + CELL_GAP = 28 + 2
+  const positions = bitPositions.map(bit => {
+    const idx = w - 1 - bit;
+    return { col: idx % COLS, row: Math.floor(idx / COLS) };
+  });
+  const minCol = Math.min(...positions.map(p => p.col));
+  const maxCol = Math.max(...positions.map(p => p.col));
+  const row = positions[0].row; // row of highest bit (bitPositions sorted desc)
+  const vx = (minCol * CELL + maxCol * CELL + CELL_SIZE) / 2;
   const vy = row * CELL + 14; // vertical center in viewBox
 
   // Map viewBox → screen, accounting for SVG border (1px each side)

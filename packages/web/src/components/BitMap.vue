@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, type PropType } from 'vue';
+import { computed, type PropType } from 'vue';
 import type { DecodeResult, Register } from '@regdecoder/core';
 
 const CELL_SIZE = 28;
@@ -76,6 +76,7 @@ interface Cell {
 const props = defineProps({
   result: { type: Object as PropType<DecodeResult>, required: true },
   register: { type: Object as PropType<Register>, required: true },
+  hoveredField: { type: String as PropType<string | null>, default: null },
 });
 
 const emit = defineEmits<{
@@ -83,17 +84,15 @@ const emit = defineEmits<{
   'field-hover': [fieldName: string | null];
 }>();
 
-const hoveredFieldName = ref<string | null>(null);
-
 function onMouseEnter(cell: Cell) {
-  hoveredFieldName.value = cell.fieldName;
   emit('field-hover', cell.fieldName);
 }
 
 function onMouseLeave() {
-  hoveredFieldName.value = null;
   emit('field-hover', null);
 }
+
+const hoveredFieldName = computed(() => props.hoveredField);
 
 const rows = computed(() => Math.max(1, Math.ceil(props.register.width / COLS)));
 

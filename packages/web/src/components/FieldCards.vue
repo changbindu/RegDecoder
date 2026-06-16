@@ -4,8 +4,11 @@
       v-for="(field, idx) in visibleFields"
       :key="idx"
       :data-field="field.name"
-      class="border rounded bg-white"
+      class="border rounded bg-white transition-shadow"
+      :class="{ 'shadow-md': hoveredField === field.name }"
       :style="{ borderColor: getFieldColor(idx) }"
+      @mouseenter="$emit('field-hover', field.name)"
+      @mouseleave="$emit('field-hover', null)"
     >
       <div class="px-2 py-1">
         <!-- Line 1: name + bits + value -->
@@ -43,6 +46,11 @@ const FIELD_COLORS = [
 
 const props = defineProps<{
   result: { fields: DecodedField[] };
+  hoveredField?: string | null;
+}>();
+
+defineEmits<{
+  'field-hover': [fieldName: string | null];
 }>();
 
 const visibleFields = computed(() => props.result.fields.filter(f => !f.isReserved));
