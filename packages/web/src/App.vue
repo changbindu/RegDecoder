@@ -137,7 +137,9 @@ function onSelectRegister(register: Register, path: string) {
   regState.selectRegister(register);
   hoveredField.value = null;
   annotations.value = null;
-  selectedPluginPath.value = path.replace(/\.jsonc$/, '.plugin.ts');
+  // Find the raw glob key for this definition, then map to plugin path
+  const defKey = Object.keys(definitionsRaw).find(k => k.endsWith(path + '.jsonc'));
+  selectedPluginPath.value = defKey ? defKey.replace(/\.jsonc$/, '.plugin.ts') : null;
 }
 
 watch(
