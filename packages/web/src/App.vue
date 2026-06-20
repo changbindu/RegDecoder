@@ -52,6 +52,10 @@
               />
             </div>
 
+            <div v-if="annotationText" class="border rounded px-2 py-1 bg-blue-50 text-xs text-gray-600">
+              {{ annotationText }}
+            </div>
+
             <div class="relative">
               <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Field Details</h3>
               <FieldCards
@@ -92,8 +96,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import type { Register } from '@regdecoder/core';
+import { ref, computed, watch } from 'vue';
+import type { Register, DecodedField } from '@regdecoder/core';
 import { buildTree } from '@regdecoder/core';
 import RegisterTree from './components/RegisterTree.vue';
 import ValueInput from './components/ValueInput.vue';
@@ -107,9 +111,19 @@ const definitionsRaw = import.meta.glob('../../../definitions/{aarch64,riscv64,x
   eager: true,
 }) as Record<string, string>;
 
+const pluginsRaw = import.meta.glob('../../../definitions/{aarch64,riscv64,x86_64}/**/*.plugin.ts', {
+  import: 'getAnnotations',
+  eager: false,
+}) as Record<string, () => Promise<(fields: DecodedField[]) => string[]>>;
+
 const definitions = definitionsRaw;
 const tree = computed(() => buildTree(definitionsRaw));
 const regState = useRegDecoder();
+
+const annotations = ref<string[] | null>(null);
+const selectedPluginPath = ref<string | null>(null);
+
+const annotationText = computed(() => annotations.value?.join(', ') ?? '');
 
 const workspaceRef = ref<HTMLElement | null>(null);
 const hoveredField = ref<string | null>(null);
@@ -122,7 +136,30 @@ const FIELD_COLORS = [
 function onSelectRegister(register: Register, path: string) {
   regState.selectRegister(register);
   hoveredField.value = null;
+  annotations.value = null;
+  selectedPluginPath.value = path.replace(/\.jsonc$/, '.plugin.ts');
 }
+
+watch(
+  () => regState.decodeResult.value,
+  async (result) => {
+    if (!result || !selectedPluginPath.value) {
+      annotations.value = null;
+      return;
+    }
+    const loader = pluginsRaw[selectedPluginPath.value];
+    if (!loader) {
+      annotations.value = null;
+      return;
+    }
+    try {
+      const getAnnotations = await loader();
+      annotations.value = getAnnotations(result.fields);
+    } catch {
+      annotations.value = null;
+    }
+  },
+);
 
 function onFieldHover(fieldName: string | null) {
   hoveredField.value = fieldName;
