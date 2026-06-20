@@ -1,4 +1,4 @@
-import type { Register, DecodedField, DecodeResult, EnumEntry } from '../types.js';
+import type { Register, DecodedField, DecodeResult, EnumEntry, RegisterAnnotation } from '../types.js';
 import { formatHex, formatBinary } from '../formatter/index.js';
 import { parseBitPositions } from '../parser/index.js';
 
@@ -165,4 +165,24 @@ function formatBitsRange(positions: number[]): string {
   }
   
   return ranges.join(', ');
+}
+
+/**
+ * Load annotations from a plugin module.
+ * The plugin must export a `getAnnotations(fields: DecodedField[]): string[]` function.
+ * Returns undefined if no plugin path is provided or if loading fails.
+ */
+export async function loadAnnotations(
+  fields: DecodedField[],
+  pluginPath?: string,
+): Promise<RegisterAnnotation[] | undefined> {
+  if (!pluginPath) return undefined;
+
+  try {
+    const plugin = await import(pluginPath);
+    if (typeof plugin.getAnnotations !== 'function') return undefined;
+    return plugin.getAnnotations(fields);
+  } catch {
+    return undefined;
+  }
 }

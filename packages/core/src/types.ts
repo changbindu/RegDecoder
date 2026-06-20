@@ -36,6 +36,9 @@ export interface DecodedField {
   isReserved: boolean;
 }
 
+/** An annotation string from a plugin (e.g., "Bits [3:0] = 0b0101 = 5") */
+export type RegisterAnnotation = string;
+
 /** Result of decoding a register value */
 export interface DecodeResult {
   registerName: string;
@@ -44,6 +47,7 @@ export interface DecodeResult {
   truncatedValue: bigint;
   isTruncated: boolean;
   fields: DecodedField[];
+  annotations?: RegisterAnnotation[];
 }
 
 /** A node in the register definition directory tree */
