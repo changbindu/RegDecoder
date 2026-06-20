@@ -50,7 +50,7 @@ program
   .requiredOption('-r, --register <name>', 'register name (e.g. currentel, SCTLR_EL1)')
   .option('-d, --definitions <dir>', 'definitions directory', path.join(projectRoot, 'definitions'))
   .option('-b, --bits', 'output raw binary distribution')
-  .action((value: string, opts: { register: string; definitions: string; bits?: boolean }) => {
+  .action(async (value: string, opts: { register: string; definitions: string; bits?: boolean }) => {
     let bigValue: bigint;
     try {
       bigValue = parseValue(value);
@@ -82,6 +82,20 @@ program
     }
 
     const result = decode(register, bigValue);
+
+    // Load annotations from companion plugin file
+    const pluginPath = definitionPath.replace(/\.jsonc$/, '.plugin.ts');
+    if (fs.existsSync(pluginPath)) {
+      try {
+        const plugin = await import(pluginPath);
+        if (typeof plugin.getAnnotations === 'function') {
+          const annotations = plugin.getAnnotations(result.fields);
+          if (annotations.length > 0) {
+            console.log(chalk.gray(annotations.join(', ')));
+          }
+        }
+      } catch { /* plugin loading failed, silently skip */ }
+    }
 
     if (result.isTruncated) {
       console.log(chalk.red(`Warning: Input value exceeds register width (${register.width}-bit). High bits truncated.`));
