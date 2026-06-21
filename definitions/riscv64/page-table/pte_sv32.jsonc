@@ -1,0 +1,40 @@
+{
+  // RISC-V Sv32 Page Table Entry (PTE), 32-bit
+  // Reference: RISC-V Privileged Architecture, Sv32 page-based virtual memory
+  "register": {
+    "name": "PTE_SV32",
+    "width": 32,
+    "description": "Sv32 Page Table Entry - 32-bit page table entry for RV32 supervisor address translation",
+    "fields": [
+      { "name": "PPN1", "bits": "20-31", "description": "Physical Page Number level 1" },
+      { "name": "PPN0", "bits": "10-19", "description": "Physical Page Number level 0" },
+      { "name": "RSW", "bits": "8-9", "description": "Reserved for supervisor software",
+        "enums": [{ "0": "Available for supervisor software" }]
+      },
+      { "name": "D", "bits": "7", "description": "Dirty - page has been written",
+        "enums": [{ "0": "Page not modified" }, { "1": "Page modified" }]
+      },
+      { "name": "A", "bits": "6", "description": "Accessed - page has been read, written, or fetched",
+        "enums": [{ "0": "Page not accessed" }, { "1": "Page accessed" }]
+      },
+      { "name": "G", "bits": "5", "description": "Global mapping",
+        "enums": [{ "0": "Not global" }, { "1": "Global mapping" }]
+      },
+      { "name": "U", "bits": "4", "description": "User mode accessible",
+        "enums": [{ "0": "Supervisor only" }, { "1": "User accessible" }]
+      },
+      { "name": "X", "bits": "3", "description": "Executable",
+        "enums": [{ "0": "Not executable" }, { "1": "Executable" }]
+      },
+      { "name": "W", "bits": "2", "description": "Writable",
+        "enums": [{ "0": "Not writable" }, { "1": "Writable" }]
+      },
+      { "name": "R", "bits": "1", "description": "Readable",
+        "enums": [{ "0": "Not readable" }, { "1": "Readable" }]
+      },
+      { "name": "V", "bits": "0", "description": "Valid",
+        "enums": [{ "0": "Invalid PTE" }, { "1": "Valid PTE" }]
+      }
+    ]
+  }
+}

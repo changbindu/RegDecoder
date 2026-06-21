@@ -1,0 +1,52 @@
+{
+  // RISC-V Sv39 Page Table Entry (PTE), 64-bit
+  // Reference: RISC-V Privileged Architecture, Sv39 page-based virtual memory
+  "register": {
+    "name": "PTE_SV39",
+    "width": 64,
+    "description": "Sv39 Page Table Entry - 64-bit page table entry for 39-bit virtual addresses",
+    "fields": [
+      { "name": "N", "bits": "63", "description": "NAPOT translation contiguity when Svnapot is implemented",
+        "enums": [{ "0": "Base page" }, { "1": "NAPOT contiguous range" }]
+      },
+      { "name": "PBMT", "bits": "61-62", "description": "Page-Based Memory Type when Svpbmt is implemented",
+        "enums": [
+          { "0": "PMA/default memory type" },
+          { "1": "Non-cacheable, idempotent, weakly ordered" },
+          { "2": "Non-cacheable, idempotent, strongly ordered I/O" },
+          { "3": "Reserved" }
+        ]
+      },
+      { "name": "PPN2", "bits": "28-53", "description": "Physical Page Number level 2" },
+      { "name": "PPN1", "bits": "19-27", "description": "Physical Page Number level 1" },
+      { "name": "PPN0", "bits": "10-18", "description": "Physical Page Number level 0" },
+      { "name": "RSW", "bits": "8-9", "description": "Reserved for supervisor software",
+        "enums": [{ "0": "Available for supervisor software" }]
+      },
+      { "name": "D", "bits": "7", "description": "Dirty - page has been written",
+        "enums": [{ "0": "Page not modified" }, { "1": "Page modified" }]
+      },
+      { "name": "A", "bits": "6", "description": "Accessed - page has been read, written, or fetched",
+        "enums": [{ "0": "Page not accessed" }, { "1": "Page accessed" }]
+      },
+      { "name": "G", "bits": "5", "description": "Global mapping",
+        "enums": [{ "0": "Not global" }, { "1": "Global mapping" }]
+      },
+      { "name": "U", "bits": "4", "description": "User mode accessible",
+        "enums": [{ "0": "Supervisor only" }, { "1": "User accessible" }]
+      },
+      { "name": "X", "bits": "3", "description": "Executable",
+        "enums": [{ "0": "Not executable" }, { "1": "Executable" }]
+      },
+      { "name": "W", "bits": "2", "description": "Writable",
+        "enums": [{ "0": "Not writable" }, { "1": "Writable" }]
+      },
+      { "name": "R", "bits": "1", "description": "Readable",
+        "enums": [{ "0": "Not readable" }, { "1": "Readable" }]
+      },
+      { "name": "V", "bits": "0", "description": "Valid",
+        "enums": [{ "0": "Invalid PTE" }, { "1": "Valid PTE" }]
+      }
+    ]
+  }
+}
